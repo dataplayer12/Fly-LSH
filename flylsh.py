@@ -20,10 +20,10 @@ class flylsh(object):
         self.hashes=(all_activations>=threshold) #choose topk activations
 
         def query(self,qidx,nnn):
-        L1_distances=np.sum(np.abs(self.hashes[qidx,:]-self.hashes),axis=1)
-        NNs=L1_distances.argsort()[1:nnn+1]
-        #print(L1_distances[NNs]) #an interesting property of this hash is that the L1 distances are always even
-        return NNs
+            L1_distances=np.sum(np.abs(self.hashes[qidx,:]-self.hashes),axis=1)
+            NNs=L1_distances.argsort()[1:nnn+1]
+            #print(L1_distances[NNs]) #an interesting property of this hash is that the L1 distances are always even
+            return NNs
 
     def true_nns(self,qidx,nnn):
         sample=self.data[qidx,:]
