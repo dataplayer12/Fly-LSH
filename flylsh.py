@@ -1,6 +1,6 @@
 import numpy as np
 
-class flylsh(LSH):
+class flylsh(object):
     def __init__(self,data,hash_length,sampling_ratio,embedding_size):
         """
         data: Nxd matrix
