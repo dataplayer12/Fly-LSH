@@ -55,7 +55,7 @@ class LSH(object):
         self.hashes=(self.data@self.weights)>0
     
     def query(self,qidx,nnn):
-        L1_distances=np.sum(np.abs(self.hashes[qidx,:]-self.hashes),axis=1)
+        L1_distances=np.sum(np.abs(self.hashes[qidx,:]^self.hashes),axis=1)
         NNs=L1_distances.argsort()[1:nnn+1]
         #print(L1_distances[NNs]) #an interesting property of this hash is that the L1 distances are always even
         return NNs
