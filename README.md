@@ -1,3 +1,7 @@
+# README for travis-ci build
+# https://api.travis-ci.org/dataplayer12/Fly-LSH.svg?master
+[![Build status](https://travis-ci.org/dataplayer12/Fly-LSH.svg?master)](https://travis-ci.org/dataplayer12)
+
 # Fly-LSH
 An implementation of efficient LSH inspired by fruit fly brain
 Reference: A neural algorithm for a fundamental computing problem [Science](http://science.sciencemag.org/content/358/6364/793/tab-article-info)
