@@ -6,10 +6,11 @@ import os
 from bokeh.plotting import figure,output_file,show
 
 class Dataset(object):
-    def __init__(self,name,path='./'):
+    def __init__(self,name,path='./datasets/'):
         self.path=path
         self.name=name.upper()
         if self.name=='MNIST' or self.name=='FMNIST':
+            self.indim=784
             try:
                 self.data=read_data_sets(self.path+self.name)
             except OSError as err:
@@ -17,47 +18,29 @@ class Dataset(object):
                 raise ValueError('Try again')
 
         elif self.name=='CIFAR10':
+            self.indim=(32,32,3)
             if self.name not in os.listdir(self.path):
                 print('Data not in path')
                 raise ValueError()
+        elif self.name=='GLOVE':
+            self.indim=300
+            self.data=pickle.load(open(self.path+'glove30k.p','rb'))
 
-    def train_batches(self,batch_size=64,sub_mean=False,maxsize=-1):
-        if self.name=='MNIST' or self.name=='FMNIST':
-            max_=self.data.train.images.shape[0]-batch_size if maxsize==-1 else maxsize-batch_size
-            for idx in range(0,max_,batch_size):
-                batch_x=self.data.train.images[idx:idx+batch_size,:]
-                batch_y=self.data.train.labels[idx:idx+batch_size]
-                batch_y=np.eye(10)[batch_y]
-                if sub_mean:
-                    batch_x=batch_x-batch_x.mean(axis=1)[:,None]
+        elif self.name=='SIFT': #SIFT features dataset
+            self.indim=128
+            self.data=loadmat(self.path+self.name+'/siftvecs.mat')['vecs']
 
-                yield batch_x,batch_y
+        elif self.name=='GIST': #GIST dataset
+            self.indim=960
+            self.data=loadmat(self.path+self.name+'gistvecs.mat')['vecs']
 
-        elif self.name=='CIFAR10':
-            for batch_num in [1,2,3,4,5]:
-                filename=self.name+'/train_batch_'+str(batch_num)+'.p'
-                with open(filename,mode='rb') as f:
-                    features,labels=pickle.load(f)
-                for begin in range(0,len(features),batch_size):
-                    end=min(begin+batch_size,len(features))
-                    yield features[begin:end],labels[begin:end]
+        elif self.name=='LMGIST': #LabelMe dataset
+            self.indim=512
+            self.data=loadmat(self.path+self.name+'/LabelMe_gist.mat')['gist']
 
-    def test_set(self,maxsize=-1,sub_mean=False):
-        #maxsize determines how many elements of test set to return
-        if self.name=='MNIST' or self.name=='FMNIST':
-            test_x=self.data.test.images[:maxsize]
-            test_y=np.eye(10)[self.data.test.labels[:maxsize]]
-            if sub_mean:
-                test_x=test_x-test_x.mean(axis=1)[:,None]
-            return (test_x,test_y)
-
-        if self.name=='CIFAR10':
-            with open(self.path+self.name+'/test_batch.p',mode='rb') as f:
-                features,labels=pickle.load(f)
-            test_x,test_y=features[:maxsize],labels[:maxsize]
-            if sub_mean:
-                test_x=test_x-test_x.mean(axis=1)[:,None]
-            return test_x,test_y
+        elif self.name=='RANDOM':
+            self.indim=128
+            self.data=np.random.random(size=(100_000,self.indim)) #np.random.randn(100_000,self.indim)
 
 class LSH(object):
     def __init__(self,data,hash_length):
