@@ -1,5 +1,5 @@
 language: python
-os: osx
+os: linux
 
 before_install:
 - brew install git-lfs
