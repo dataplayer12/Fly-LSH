@@ -1,8 +1,16 @@
+os:
+  - linux
+
 language: python
-os: linux
 
-before_install:
-- brew install git-lfs
+python:
+  - "3.6"
 
-before_script:
-- git lfs pull
+install:
+  - pip install -r requirements.txt
+
+#before_install:
+#- brew install git-lfs
+
+#before_script:
+#- git lfs pull
