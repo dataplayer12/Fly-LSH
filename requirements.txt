@@ -2,4 +2,4 @@ bokeh==0.12.6
 numpy==1.14.0
 tensorflow==1.4.1
 scipy==1.0.0
-sklearn==0.19.1
+sklearn
