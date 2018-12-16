@@ -1,3 +1,8 @@
+"""
+This file contains an implementation of the Fly Hash algorithm reported by Dasgupta et. al.
+For implementation of better performing algorithms subsequently proposed by Sharma et. al.,
+please refer to the main directory of this repo (relative path: ../)
+"""
 from tensorflow.examples.tutorials.mnist.input_data import read_data_sets
 import tensorflow as tf
 import numpy as np
