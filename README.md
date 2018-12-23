@@ -1,7 +1,7 @@
 [![Build status](https://travis-ci.org/dataplayer12/Fly-LSH.svg?master)](https://travis-ci.org/dataplayer12)
 
 ## Note
-This folder contains an implementation of the Fly Hash algorithm reported by Dasgupta et. al. For implementation of better performing algorithms subsequently proposed by Sharma et. al., please refer to the main directory of this repo (relative path: `../`)
+This folder contains an implementation of the Fly Hash algorithm reported by Dasgupta et. al. For implementation of better performing algorithms subsequently proposed by Sharma et. al., please refer to the master branch of this repo
 
 # Fly-LSH
 An implementation of efficient LSH inspired by fruit fly brain
